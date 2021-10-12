@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 创建挂载元素 -->
+    <div id="app">
+        {{msg}}
+        <button>alert</button>
+        <!-- 元素是否存在；根据 show 的布尔值判断 dom 结构，如果为 flase 直接在结构中不展示 -->
+        <div v-if="show">v-if(show=True)</div>
+        <div v-else>v-else(show=False)</div>
+
+        <!-- 元素是否展示；根据 show 的布尔值判断，如果为 false 在 dom 结构中有，但 style 为 display：none -->
+        <div v-show="show">v-show</div>
+
+        <!-- 循环 -->
+        <p v-for="(value, index) in arr">{{value}} ==> {{index}}</p>
+        <p v-for="(value, key, index) in obj">{{index}} ==> {{key}}: {{value}}</p>
+        <p v-for="value in objArr">{{value.name}}({{value.age}} 岁, {{value.gender}})</p>
+        
+        <!-- 绑定事件 可以简写成 @ 的方式-->
+        <!-- <button v-on:click="add()">点我可以加 1</button> -->
+        <button @click="add()">点我可以加 1</button>
+        <div>{{count}}</div>
+
+        <!-- 动态绑定属性 v-bind 可以简写成冒号的方式-->
+        <!-- <div style="width:100px;height:100px;border:1px solid #000" v-bind:style="bgcolor"></div> -->
+        <div style="width:100px;height:100px;border:1px solid #000" :style="bgcolor"></div>
+
+        <!-- 绑定数据 -->
+        <input type="text" v-model="text">
+        <button @click="showText()">控制台打印</button>
+
+    </div>
+    <!-- 通过 script 标签引入 vue -->
+    <script src="./vue.js"></script>
+    <script>
+        // 创建一个 vue 实例
+        new Vue({
+            // 表示在 div 标签下生效， # 为 id， . 为 class
+            el:'#app',
+            // 存储 div 标签所用到的数据
+            data:{
+                msg:'hello world',
+                show:true,
+                // 列表
+                arr:["for - demo 1", "for - demo 2", "for - demo 3"],
+                // 对象
+                obj:{
+                    "name": 'zhangsan',
+                    "age": '18',
+                    "gender": "male"
+                },
+                // 对象数组
+                objArr:[
+                {
+                    "name": 'zhangsan',
+                    "age": '18',
+                    "gender": "male"
+                },
+                {
+                    "name": 'lisi',
+                    "age": '19',
+                    "gender": "male"
+                },
+                {
+                    "name": 'wangwu',
+                    "age": '20',
+                    "gender": "male"
+                },
+                ],
+                count: 1,
+                bgcolor:{
+                    backgroundColor: 'red'
+                },
+                text:123
+            },
+            // 绑定的方法
+            methods:{
+                add(){
+                    this.count++;
+                },
+                showText(){
+                    console.log(this.text)
+                },
+            },
+            // 钩子函数 - vue 生命周期
+            beforeCreate(){
+                console.log("Vue 实例创建前的操作")
+            },
+            created() {
+                console.log("Vue 实例创建后的操作")
+            },
+            beforeMount(){
+                console.log("页面创建完后，dom 元素可能还没有加载完成，这里是当前 dom 元素加载前的操作")
+            },
+            mounted(){
+                console.log("当前 dom 元素加载完后的操作")
+            },
+            beforeUpdate(){
+                console.log("当前页面更新前的操作")
+            },
+            updated() {
+                console.log("当前页面更新后的操作")
+            },
+            beforeDestroy(){
+                console.log("当前 vue 元素销毁前的操作")
+            },
+            destoryed(){
+                console.log("当前 vue 元素销毁后的操作")
+            }
+        })
+    </script>
+</body>
+</html>
