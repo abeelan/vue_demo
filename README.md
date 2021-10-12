@@ -21,3 +21,11 @@
 ### project2
 练习项目二，通过命令行安装插件
 
+### 快捷键
+格式化代码：Shift + Alt + F
+
+### 遇到的报错
+```
+[vue-router] Route with name ’ ’ does not exist
+```
+路由地址不存在，问题就出在 `router/index.js`，代码里面是这样引用 `this.$router.push({name: item.router})` 的，结果 `routes` 没给设置 name 属性，崩溃了呀。。。找了半天。。。
