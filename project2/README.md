@@ -27,4 +27,7 @@ $ npm install --save axios
 
 
 
-### 
+### 项目拆解
+
+![image-20211012155338179](https://gitee.com/abeelan/image-hosting-service/raw/master/img/image-20211012155338179.png)
+

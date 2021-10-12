@@ -4,11 +4,12 @@ import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
+// 路由管理
 const routes = [
   {
-    path: '/',
+    path: '/',  // 路由地址
     name: 'Home',
-    component: Home
+    component: Home  // 路由对应的渲染组件
   },
   {
     path: '/about',
