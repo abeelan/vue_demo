@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<!-- 页面的元素 dom
+header 存放配置信息，引入的 js 脚本等
+body 正文 页面相关的元素
+-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -36,8 +40,10 @@
         <button @click="showText()">控制台打印</button>
 
     </div>
+
     <!-- 通过 script 标签引入 vue -->
     <script src="./vue.js"></script>
+    <!-- js 代码，数据相关的处理 -->
     <script>
         // 创建一个 vue 实例
         new Vue({
