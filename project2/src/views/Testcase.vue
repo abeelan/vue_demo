@@ -227,9 +227,17 @@ export default {
     },
 
     executeCase() {
-      // 执行测试用例
-      console.log("exec case.");
+      // 执行测试用例 同时新增一条测试任务记录
       console.log(this.selected);
+      this.$api.task.addTask(this.selected).then(result => {
+        console.log(result)
+        if(result.data.error===0){
+          alert("用例执行成功，在测试任务页面可查看报告。")
+        }
+        else{
+          alert("测试执行失败，请查看日志信息")
+        }
+      })
     },
   },
 };

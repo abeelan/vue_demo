@@ -7,8 +7,22 @@
       class="elevation-1"
     >
       <template v-slot:item.actions="{ item }">
-        <v-btn small color="primary" style="margin:10px;" @click="editItem(item)"> 查看报告 </v-btn>
-        <v-btn small color="red" style="margin:10px;" @click="deleteItem(item)"> 删除 </v-btn>
+        <v-btn
+          small
+          color="primary"
+          style="margin: 10px"
+          @click="checkReport(item)"
+        >
+          查看报告
+        </v-btn>
+        <v-btn
+          small
+          color="redl"
+          style="margin: 10px"
+          @click="deleteItem(item)"
+        >
+          删除
+        </v-btn>
       </template>
     </v-data-table>
   </div>
@@ -16,27 +30,33 @@
 
 <script>
 export default {
+  created() {
+    // 每次刷新页面，先去调用 获取数据
+    this.getTaskList();
+  },
   data() {
     return {
       headers: [
         { text: "任务 ID", align: "start", sortable: false, value: "id" },
         { text: "任务名称", align: "start", sortable: false, value: "name" },
         { text: "任务描述", value: "remark" },
+        { text: "创建时间", value: "create_at", sortable: true },
         { text: "操作", value: "actions", sortable: false },
       ],
-      desserts: [
-        {
-          id: 1,
-          name: "测试任务一",
-          remark: "别睡了，起来嗨呀！",
-        },
-        {
-          id: 2,
-          name: "测试任务二",
-          remark: "天气不错，去游乐园！",
-        },
-      ],
+      desserts: [],
     };
+  },
+  methods: {
+    getTaskList() {
+      console.log(this.$api.task);
+      this.$api.task.getTask().then((result) => {
+        console.log(result);
+        this.desserts = result.data.data;
+      });
+    },
+    checkReport(item) {
+      window.open(item.report)
+    },
   },
 };
 </script>
