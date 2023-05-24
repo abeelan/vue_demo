@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>初识Vue</title>
+    <!-- 引入 vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+
+<body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+        <!-- 设置数据可变：vue 插值 -->
+        <h1>Hello, {{name.toUpperCase()}}, {{address}}, {{Date.now()}}</h1>
+    </div>
+
+    <script type="text/javascript">
+        // 阻止 vue 在启动时控制台产生生产提示 没生效，然后去 vue.js 修改 367 行
+        Vue.config.productionTip = false  
+
+        // 创建 vue 实例，这里不需要使用变量去接
+        // const x = new Vue({
+        new Vue({
+            // el: document.getElementById("root")  // 另一种写法
+            el: '#root',  // el 用于指定当前 vue 实例为哪个容器服务，值通常为 css 选择器字符
+            data: {  // data 中用于存储数据，供 el 指定的容器去使用，值暂时先写成一个对象
+                name: "abee",
+                address: "北京"
+            }
+        })
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>计算属性</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+
+<body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+        姓: <input type="text" v-model="firstName"> <br/><br/>
+        名: <input type="text" v-model="lastName"> <br/><br/>
+        全名: <span>{{firstName}}-{{lastName}}</span>
+        <!-- 当需求复杂时，插值表达式过于复杂，不直观 -->
+        
+    </div>
+</body>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false
+    const vm = new Vue({
+        el: "#root",
+        data: {
+            firstName: "张",
+            lastName: "三"
+        }
+    })
+</script>
+</html>

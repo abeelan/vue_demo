@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>2.事件修饰符</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <style>
+        *{
+            margin-top: 20px;
+        }
+        .btn1 {
+            height: 50px;
+            background-color: aquamarine;
+        }
+        .box1 {
+            padding: 5px;
+            background-color: skyblue;
+        }
+        .box2 {
+            padding: 5px;
+            background-color: orange;
+        }
+        .list {
+            width: 200px;
+            height: 200px;
+            background-color: peru;
+            overflow: auto;
+        }
+        li {
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 
+    Vue 中的事件修饰符：
+        1. prevent：阻止默认事件（常用）
+        2. stop：阻止事件冒泡（常用）
+        3. once：事件只触发一次（常用）
+        4. capture：使用事件的捕获模式
+        5. self：只有 event.target 是当前操作的元素时才触发事件
+        6. passive：事件默认行为立即执行，无需等待事件回调执行完毕
+
+        修饰符可以连续写，比如 click.prevent.stop
+     -->
+
+     <div id="root">
+        <h2>欢迎大家~</h2>
+
+        <!-- prevent：阻止默认事件（常用） -->
+        <a href="https://www.baidu.com" @click.prevent="showInfo">
+            点击链接阻止默认事件 - 不会跳转
+        </a>
+
+        <!-- stop：阻止事件冒泡（常用） -->
+        <div class="btn1" @click="showInfo">
+            <button @click.stop="showInfo">
+                我跟父节点点击都调用弹窗，阻止时间冒泡，只弹一次弹窗
+            </button>
+        </div>
+
+        <!-- once：事件只触发一次（常用） -->
+        <button @click.once="showInfo">无论点击我多少次我都仅第一次会弹窗</button>
+
+        <!-- 
+            capture：使用事件的捕获模式 
+            一般是先捕获再冒泡，正常点击 div2 后，先捕获 1 2，冒泡 2 1，会输出 2 1，执行在冒泡阶段
+            使用 box1 加上 capture 后，在捕获阶段就开始处理了，会输出 1 2
+        -->
+        <div class="box1" @click.capture="showMsg(1)">
+            div1
+            <div class="box2" @click="showMsg(2)">
+                div2
+            </div>
+        </div>
+
+        <!-- self：只有 event.target 是当前操作的元素时才触发事件 
+            下面这种情况 btn1 加上了 self，只有当 target 是 div 才会执行
+            当点击 button 时，target 事件不是 div，所以不会执行，某种意义上阻止了冒泡
+        -->
+        <div class="btn1" @click.self="showInfo">
+            <button @click="showInfo">我是button，我上面有个div回调事件是self</button>
+        </div>
+
+        <!-- passive：事件默认行为立即执行，无需等待事件回调执行完毕 
+            scroll：跟随 滚动条
+                滑动滚动条，响应滚动事件，鼠标滚轮滚动，不响应滚动事件
+                滚动条已经到底了，不响应滚动事件
+                不存在 wheel 的情况，优先响应滚动
+
+
+            wheel: 跟随 鼠标
+                滑动滚动条，不响应滚动事件，鼠标滚轮滚动，响应滚动事件
+                滚动条已经到底了，依然在响应滚动事件
+                先去执行事件回调函数内的循环，然后才执行默认滚动事件，会很卡， passive 就是立即执行
+                移动端一般会用
+        -->
+        <!-- <ul class="list" @scroll="demo"> -->
+        <ul class="list" @wheel.passive="demo">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+
+
+     </div>
+    
+</body>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false
+    const vm = new Vue({
+        el: "#root",
+        data: {
+            
+        },
+        methods: {
+            showInfo() {
+                alert("你好啊~")
+            },
+            showMsg(num) {
+                console.log(num)
+            },
+            demo(num) {
+                for (let i = 0; i < 10000; i++) {
+                    console.log("@");
+                }
+                console.log("累坏了")
+            }
+        }
+    })
+</script>
+</html>
